@@ -19,7 +19,7 @@ is then used to redirect to the original long URL.
     ```json
     {
         "url": "https://www.google.com",
-        "expiry": "2021-12-31T23:59:59" // Optional
+        "expiry": "2021-12-31T23:59:59" // Optional field
     }
     ```
     The server will respond with a string payload containing the shortened URL:
