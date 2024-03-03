@@ -24,7 +24,7 @@ is then used to redirect to the original long URL.
     ```
     The server will respond with a string payload containing the shortened URL:
     ```text
-    https://fvl.uk/6E9cK6
+    http://localhost:5000/6E9cK6
     ```
 7. To use the shortened URL, simply make a GET request to the shortened URL and the server will redirect you to the original URL.
 

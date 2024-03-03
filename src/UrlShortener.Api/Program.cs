@@ -9,6 +9,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IShortener, Shortener>();
 
+var redirectDomain = builder.Configuration["RedirectDomain"];
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -22,7 +24,7 @@ app.UseHttpsRedirection();
 app.MapPost("/shorten", (IShortener shorten, string url, DateTime? expiryDate) =>
     {
         var token = shorten.Shorten(new ShortUrl(url, expiryDate, DateTime.UtcNow));
-        return "https://fvl.uk/" + token;
+        return $"{redirectDomain}/{token}";
     })
     .WithName("shorten")
     .WithOpenApi();
@@ -41,7 +43,7 @@ static Task RedirectDelegate(HttpContext httpContext, IShortener shorten)
     }
     catch (Exception e)
     {
-        httpContext.Response.StatusCode = (int) HttpStatusCode.NotFound;
+        httpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
     }
 
     return Task.CompletedTask;
